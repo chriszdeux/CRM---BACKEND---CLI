@@ -1,0 +1,17 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de compilación TypeScript
+dist/
+
+# Archivo de configuración de TypeScript
+tsconfig.json
+
+# Archivo de configuración de VS Code
+.vscode/
+
+# Archivo de entorno local
+.env
+
+# Archivo de registro de errores
+error.log
