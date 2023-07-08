@@ -32,6 +32,26 @@ We welcome contributions from the community! To contribute to the Crypto LI Back
 4. Push the branch to your forked repository: `git push origin my-feature`.
 5. Submit a pull request to the `main` branch of the Crypto LI Backend repository.
 
+## Suggested Structure for a Backend Project 🏗️
+
+This is an example of a suggested structure for organizing a backend project based on Express.js:
+
+- **`src/controllers`**: Contains the controllers that handle HTTP requests and corresponding responses. 👥📡
+- **`src/models`**: Stores the data models that represent the structure of the information managed by the application. 📚🧩
+- **`src/routes`**: Defines the application routes and associates them with the corresponding controllers. 🛣️🔗
+- **`src/services`**: Holds the business logic and reusable functions not directly related to controllers. 🧪🚀
+- **`src/utils`**: Contains utilities and helper functions used across different parts of the project. 🛠️🔧
+- **`src/middleware`**: Stores custom middlewares for tasks like validation, authentication, error handling, etc. 🛡️🔌
+- **`src/config`**: Contains configuration files for environment variables and configuration options. ⚙️🔩
+- **`src/app.js`** or **`src/index.js`**: Main entry point of the application where the Express.js server is configured and launched. 🚀🌐
+- **`dist`**: Folder generated after compiling/transpiling the TypeScript code (if TypeScript is used). 📦🔧
+
+This structure aims to separate responsibilities and facilitate scalability and maintenance of the project. However, please note that this is just a suggestion and can be adjusted according to the specific needs and preferences of each project.
+
+Remember that this structure can be expanded and adapted as the project grows and more functionalities are added.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Please make sure to adhere to the [Code of Conduct](CODE_OF_CONDUCT.md) and [Contributing Guidelines](CONTRIBUTING.md) of this project.
 
 ## License
