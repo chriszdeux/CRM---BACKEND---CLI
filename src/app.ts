@@ -1,25 +1,43 @@
 import express from 'express';
-import { clearConsole } from './utils';
-import { userRoutes } from './routes';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import { connectToDatabase } from './database/dataBaseConnection';
+import { EmployeesRoutes } from './routes';
+import { CustomSessionData } from '../typings/express';
 
+require('dotenv').config();
 
 const app = express();
-const port = 8000;
 
-clearConsole();
+app.use(express.json());
+
+const mongoUrl = process.env.DB_CONNECTION ?? '';
+connectToDatabase(mongoUrl);
+
+app.use(
+  session({
+    secret: process.env.SECRET_KEY || 'secret-key-by-one',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl }),
+    cookie: { maxAge: 60 * 60 * 1000 }
+  })
+);
+
+declare module 'express' {
+  interface Request {
+    session: CustomSessionData;
+  }
+}
+
+const port = 8000;
 
 app.get('/', function (req, res) {
   res.send('Server CLI alive');
 });
 
-connectToDatabase()
-
-app.use('/users', userRoutes);
-
+app.use('/employees', EmployeesRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
-
-export default app;

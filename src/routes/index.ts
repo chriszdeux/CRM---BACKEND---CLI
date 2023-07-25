@@ -1,3 +1,3 @@
-import userRoutes from './users/userRoutes';
+import EmployeesRoutes from './Employees.route';
 
-export { userRoutes };
+export { EmployeesRoutes };
