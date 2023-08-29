@@ -1,12 +1,6 @@
-import { PersonInterface } from "./Person.interface";
+import { GeneralInfoInterface } from "./GeneralInfo.interface";
 
-export interface EmployeeInterfaces extends PersonInterface {
+export interface EmployeeInterfaces extends GeneralInfoInterface {
   role: 'god' | 'admin' | 'employee';
-  active: boolean;
   permissions: ('read' | 'write' | 'create' | 'delete')[];
-  createdAt: string;
-  profileImage?: string,
-  isLogged: boolean,
-  lastLogin?: string,
-  authToken?: string
 }

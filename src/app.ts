@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import { connectToDatabase } from './database/dataBaseConnection';
-import { EmployeesRoutes } from './routes';
+import { CoinsRoutes, EmployeesRoutes, UsersRoutes } from './routes';
 import { CustomSessionData } from '../typings/express';
 
 require('dotenv').config();
@@ -37,6 +37,8 @@ app.get('/', function (req, res) {
 });
 
 app.use('/employees', EmployeesRoutes);
+app.use('/users', UsersRoutes);
+app.use('/coins', CoinsRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

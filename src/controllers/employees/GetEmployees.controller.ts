@@ -6,6 +6,7 @@ export const getEmployees = async (req: Request, res: Response) => {
   clearConsole();
   try {
     const employees = await EmployeesModel.find();
+    console.log('Done :)')
     res.send(employees);
   } catch (error) {
     console.error(error);

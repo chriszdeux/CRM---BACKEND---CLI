@@ -1,3 +1,5 @@
-import EmployeesRoutes from './Employees.route';
+import EmployeesRoutes from './Employees.routes';
+import CoinsRoutes from './Coins.routes';
+import UsersRoutes from './Users.routes';
 
-export { EmployeesRoutes };
+export { EmployeesRoutes, CoinsRoutes, UsersRoutes };
