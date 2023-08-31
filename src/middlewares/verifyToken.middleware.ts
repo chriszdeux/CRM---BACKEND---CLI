@@ -1,24 +1,31 @@
 import { NextFunction, Request, Response } from "express";
-import { EmployeesModel } from "../models";
+import { EmployeesModel, UsersModel } from "../models";
 const jwt = require("jsonwebtoken");
 
-export const verifyToken = async  (req:Request, res:Response, next:NextFunction) => {
+export const verifyToken = async  (req:Request, res:Response, next:NextFunction, model: typeof EmployeesModel | typeof UsersModel ) => {
   try {
     const token = req.headers['authorization'];
     if (!token) {
       return res.status(401).json({ message: 'No Token' });
     }
-    const employee = await EmployeesModel.find({authToken: token });
-    if(employee.length === 0 || employee[0].authToken !== token){
-      return res.status(401).json({ message: 'Invalid Token' })
+    if( model === EmployeesModel ) {
+      const employee = await EmployeesModel.find({authToken: token });
+      if(employee.length === 0 || employee[0].authToken !== token){
+        return res.status(401).json({ message: 'Invalid Token' })
+      }
+      if(!employee[0].isLogged) {
+        return res.status(401).json({ message: 'Contact Support' })
+      }
+    } 
+    else if ( model === UsersModel ) {
+      const user = await UsersModel.find({authToken: token });
+      if(user.length === 0 || user[0].authToken !== token){
+        return res.status(401).json({ message: 'Invalid Token' })
+      }
+      if(!user[0].isLogged) {
+        return res.status(401).json({ message: 'Contact Support' })
+      }
     }
-    if(!employee[0].isLogged) {
-      return res.status(401).json({ message: 'Contact Support' })
-    }
-    console.log(employee)
-    // if( employee.authToken !== token ) {
-    //   return res.status(401).json({ message: 'Invalid Token' });
-    // }
     const secretKey = process.env.SECRET_KEY
     jwt.verify(token, secretKey, async (err:any, decoded:any) => {
     if (err) {
@@ -28,6 +35,15 @@ export const verifyToken = async  (req:Request, res:Response, next:NextFunction)
     next();
     });
   } catch (error) {
-    
+    return error
   }
+}
+
+
+export const validateEmployeeToken = async (req: Request, res:Response, next: NextFunction) => {
+  await verifyToken(req, res, next, EmployeesModel)
+}
+
+export const validateUsersToken = async (req: Request, res:Response, next: NextFunction) => {
+  await verifyToken(req, res, next, UsersModel)
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserInterface } from "../../interfaces";
-import { formatDate } from "../../utils";
+import { formatDate, generateRandomCode, sendCodeEmail } from "../../utils";
 import { SessionUsersModel, UsersModel } from "../../models";
 import mongoose from "mongoose";
 const jwt = require("jsonwebtoken");
@@ -18,9 +18,10 @@ export const createNewUser = async ( req:Request, res:Response ) => {
     const token = jwt.sign(user, secretKey, { expiresIn: tokenExpiration });
     user.authToken = token
 
-
+    const code = generateRandomCode()
     const userCreated = new UsersModel(userData);
-
+    userCreated.confirmCode = code
+    sendCodeEmail(user.email, code)
     const newSession = new SessionUsersModel({
       _id: userCreated._id,
       expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),

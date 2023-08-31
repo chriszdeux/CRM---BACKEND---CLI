@@ -1,11 +1,30 @@
 import { Request, Response } from "express";
-import { UsersModel } from "../../models";
+import { SessionUsersModel, UsersModel } from "../../models";
+const jwt = require("jsonwebtoken");
 
 export const LoginUser = async (req: Request, res: Response) => {
   const { email } = req.body;
   try {
     const user  = await UsersModel.findOne({ email: email }, { password: 0 });
+    
     if (user) {
+
+      const secretKey = process.env.SECRET_KEY;
+      const tokenExpiration = "7d";
+      
+      const token = jwt.sign(req.body, secretKey, { expiresIn: tokenExpiration });
+      user.authToken = token
+
+
+      const newSession = new SessionUsersModel({
+        _id: user._id,
+        expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
+        session: token,
+      });
+
+      user.isLogged = true
+      await user.save()
+      await newSession.save()
       console.log(`User: ${user.name} logged`);
       res.status(201).json({ message: "Authorization Success", data: user});
     } else {

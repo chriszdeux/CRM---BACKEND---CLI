@@ -58,6 +58,14 @@ export const UserSchema = new Schema<UserInterface>({
   phone: {
     type: String,
   },
+  confirmedAccount: {
+    type :Boolean ,
+    required: true,
+    default: false
+  },
+  confirmCode: {
+    type: String
+  }
 })
 
 export const UsersModel = mongoose.model<UserInterface>('users',UserSchema)

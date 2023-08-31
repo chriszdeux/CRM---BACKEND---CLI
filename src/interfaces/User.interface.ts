@@ -5,5 +5,7 @@ export interface UserInterface extends GeneralInfoInterface {
   username: string,
   country: string,
   experienceLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'Not Specified',
-  phone?: string
+  phone?: string,
+  confirmedAccount: boolean,
+  confirmCode: string
 }
