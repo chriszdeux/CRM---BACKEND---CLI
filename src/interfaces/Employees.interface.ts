@@ -1,6 +1,6 @@
-import { GeneralInfoInterface } from "./GeneralInfo.interface";
+import { generalInfoInterface } from "./GeneralInfo.interface";
 
-export interface EmployeeInterfaces extends GeneralInfoInterface {
+export interface employeeInterfaces extends generalInfoInterface {
   role: 'god' | 'admin' | 'employee';
   permissions: ('read' | 'write' | 'create' | 'delete')[];
 }

@@ -1,7 +1,7 @@
 import mongoose, { Schema, mongo } from "mongoose";
-import { UserInterface } from "../interfaces";
+import { userInterface } from "../interfaces";
 
-export const UserSchema = new Schema<UserInterface>({
+export const userSchema = new Schema<userInterface>({
   name: {
     type: String,
     required: true,
@@ -65,7 +65,28 @@ export const UserSchema = new Schema<UserInterface>({
   },
   confirmCode: {
     type: String
-  }
+  },
+  credits: {
+    type: Number
+  },
+  portfolio: {
+    crypto: [
+      {
+        id: {
+          type: String,
+          required: false,
+        },
+        name: {
+          type: String,
+          required: false,
+        },
+        amount: {
+          type: Number,
+          required: false,
+        },
+      },
+    ],
+  },
 })
 
-export const UsersModel = mongoose.model<UserInterface>('users',UserSchema)
+export const usersModel = mongoose.model<userInterface>('users',userSchema)

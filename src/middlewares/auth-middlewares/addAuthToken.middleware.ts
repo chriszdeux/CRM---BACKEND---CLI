@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import { SessionEmployeesModel, SessionUsersModel } from "../models";
+import { sessionEmployeesModel, sessionUsersModel } from "../../models";
 
 const jwt = require("jsonwebtoken");
-export const addAuthToken = async (req: Request, res: Response, next: NextFunction, model: typeof SessionEmployeesModel | typeof SessionUsersModel ) => {
+export const addAuthToken = async (req: Request, res: Response, next: NextFunction, model: typeof sessionEmployeesModel | typeof sessionUsersModel ) => {
   const user = req.body;
   try {
     
@@ -28,9 +28,9 @@ export const addAuthToken = async (req: Request, res: Response, next: NextFuncti
 
 
 export const addEmployeeAuthToken = async (req: Request, res: Response, next: NextFunction) => {
-  await addAuthToken(req, res, next, SessionEmployeesModel)
+  await addAuthToken(req, res, next, sessionEmployeesModel)
 }
 
 export const addUserAuthToken = async (req: Request, res: Response, next: NextFunction) => {
-  await addAuthToken(req, res, next, SessionUsersModel)
+  await addAuthToken(req, res, next, sessionUsersModel)
 }

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-import { SessionInterface } from "../../interfaces";
+import { sessionInterface } from "../../interfaces";
 
-const SessionSchema = new Schema<SessionInterface>({
+const sessionSchema = new Schema<sessionInterface>({
   _id: mongoose.Types.ObjectId,
   expires: Date,
   session: {
@@ -13,4 +13,4 @@ const SessionSchema = new Schema<SessionInterface>({
 
 
 
-export const SessionEmployeesModel = mongoose.model<SessionInterface>("SessionEmployees", SessionSchema);
+export const sessionEmployeesModel = mongoose.model<sessionInterface>("SessionEmployees", sessionSchema);

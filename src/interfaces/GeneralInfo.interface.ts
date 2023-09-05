@@ -1,4 +1,4 @@
-export interface GeneralInfoInterface  {
+export interface generalInfoInterface  {
   name: string;
   lastName: string,
   email: string;

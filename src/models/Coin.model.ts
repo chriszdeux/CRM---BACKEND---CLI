@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-import { CoinInterface } from "../interfaces";
+import { coinInterface } from "../interfaces";
 
-const CoinSchema = new Schema<CoinInterface>({
+const coinSchema = new Schema<coinInterface>({
   uuid: { type: String, required: true },
   symbol: { type: String, required: true },
   name: { type: String, required: true },
@@ -35,4 +35,4 @@ const CoinSchema = new Schema<CoinInterface>({
   createdAt: { type: String, required: true }
 });
 
-export const CoinModel = mongoose.model<CoinInterface>('coins', CoinSchema);
+export const coinModel = mongoose.model<coinInterface>('coins', coinSchema);

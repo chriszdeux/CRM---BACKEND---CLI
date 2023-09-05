@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { clearConsole } from "../../utils";
-import {EmployeesModel} from "../../models/index"
+import {employeesModel} from "../../models/index"
 
 export const getEmployees = async (req: Request, res: Response) => {  
   clearConsole();
   try {
-    const employees = await EmployeesModel.find();
+    const employees = await employeesModel.find();
     console.log('Done :)')
     res.send(employees);
   } catch (error) {

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { SessionUsersModel, UsersModel } from "../../models";
+import { sessionUsersModel, usersModel } from "../../models";
 const jwt = require("jsonwebtoken");
 
-export const LoginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
   const { email } = req.body;
   try {
-    const user  = await UsersModel.findOne({ email: email }, { password: 0 });
+    const user  = await usersModel.findOne({ email: email }, { password: 0 });
     
     if (user) {
 
@@ -16,7 +16,7 @@ export const LoginUser = async (req: Request, res: Response) => {
       user.authToken = token
 
 
-      const newSession = new SessionUsersModel({
+      const newSession = new sessionUsersModel({
         _id: user._id,
         expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
         session: token,

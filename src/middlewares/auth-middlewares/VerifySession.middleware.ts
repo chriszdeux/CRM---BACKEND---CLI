@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { SessionEmployeesModel, SessionUsersModel } from "../models";
+import { sessionEmployeesModel, sessionUsersModel } from "../../models";
 
- const verifySession = async ( req: Request, res: Response, next: NextFunction, session: typeof SessionEmployeesModel | typeof SessionUsersModel ) => {
-  const id = req.body.id
+ const verifySession = async ( req: Request, res: Response, next: NextFunction, session: typeof sessionEmployeesModel | typeof sessionUsersModel ) => {
+  const id = req.params.id
   try {
     const sessionExist = await session.findById({ _id: id })
     console.log(sessionExist)
@@ -18,8 +18,8 @@ import { SessionEmployeesModel, SessionUsersModel } from "../models";
 }
 
 export const isEmployeeSessionActive = async (req: Request, res: Response, next: NextFunction) => {
-  await verifySession(req, res, next, SessionEmployeesModel)
+  await verifySession(req, res, next, sessionEmployeesModel)
 }
 export const isUserSessionActive = async (req: Request, res: Response, next: NextFunction) => {
-  await verifySession(req, res, next, SessionUsersModel)
+  await verifySession(req, res, next, sessionUsersModel)
 }

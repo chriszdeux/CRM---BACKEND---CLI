@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { CoinModel } from "../../models";
+import { coinModel } from "../../models";
 import { formatDate } from "../../utils";
-import { CoinInterface } from "../../interfaces";
+import { coinInterface } from "../../interfaces";
 
 export const createNewCoin = async (req: Request, res: Response) => {
-  const coinData: CoinInterface = req.body;
+  const coinData: coinInterface = req.body;
   try {
-    const newCoin = new CoinModel(coinData);
+    const newCoin = new coinModel(coinData);
     newCoin.createdAt = formatDate(new Date());
     await newCoin.save();
     res.status(200).send({ message: 'Created Success', data: newCoin });

@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { EmployeesModel, SessionEmployeesModel } from "../../models";
+import { employeesModel, sessionUsersModel } from "../../models";
 import { formatDate } from "../../utils";
-import { EmployeeInterfaces } from "../../interfaces";
+import { employeeInterfaces } from "../../interfaces";
 import mongoose from "mongoose";
 const jwt = require("jsonwebtoken");
 
 export const createNewEmployee = async (req: Request, res: Response) => {
   try {
-    const employeeData: EmployeeInterfaces = req.body;
+    const employeeData: employeeInterfaces = req.body;
     employeeData.createdAt = formatDate(new Date());
     employeeData.isLogged = true
     
@@ -19,9 +19,9 @@ export const createNewEmployee = async (req: Request, res: Response) => {
     const { password, ...employeeWithoutPassword } = employeeData;
 
 
-    const employeeCreated = new EmployeesModel(employeeData);
+    const employeeCreated = new employeesModel(employeeData);
 
-    const newSession = new SessionEmployeesModel({
+    const newSession = new sessionUsersModel({
       _id: employeeCreated._id,
       expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
       session: token,

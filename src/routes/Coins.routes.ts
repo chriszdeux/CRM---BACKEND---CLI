@@ -1,7 +1,6 @@
 import express from 'express';
-import { ValidatePermissions } from '../middlewares/ValidatePermissions.middleware';
 import { createNewCoin } from '../controllers';
-import { validateEmployeeToken } from '../middlewares';
+import { validateEmployeeToken, ValidatePermissions } from '../middlewares';
 
 const router = express.Router();
 

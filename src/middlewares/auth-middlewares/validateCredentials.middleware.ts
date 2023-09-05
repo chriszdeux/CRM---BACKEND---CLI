@@ -1,21 +1,21 @@
 import { NextFunction, Request, Response } from "express";
-import { EmployeesModel, SessionUsersModel, UsersModel } from "../models";
-import { clearConsole, comparePassword } from "../utils";
-import { CustomSessionData } from "../../typings/express";
-import { SessionEmployeesModel } from "../models/sessions/SessionEmployee.model";
+import { employeesModel, sessionUsersModel, usersModel } from "../../models";
+import { clearConsole, comparePassword } from "../../utils";
+import { CustomSessionData } from "../../../typings/express";
+import { sessionEmployeesModel } from "../../models/sessions/SessionEmployee.model";
 
 const jwt = require("jsonwebtoken");
 
-export const validateCredentials = async (req: Request, res: Response, next: NextFunction, model: typeof EmployeesModel | typeof UsersModel, session: typeof SessionEmployeesModel | typeof SessionUsersModel) => {
+export const validateCredentials = async (req: Request, res: Response, next: NextFunction, model: typeof employeesModel | typeof usersModel, session: typeof sessionEmployeesModel | typeof sessionUsersModel) => {
   const { email, password } = req.body;
   const sessionRequest = req.session as CustomSessionData;
   console.log(sessionRequest)
   try {
     let user
-    if(model === EmployeesModel) {
-      user = await EmployeesModel.findOne({ email: email });
-    } else if( model === UsersModel ) {
-      user = await UsersModel.findOne({ email: email });
+    if(model === employeesModel) {
+      user = await employeesModel.findOne({ email: email });
+    } else if( model === usersModel ) {
+      user = await usersModel.findOne({ email: email });
     }
     if (!user) {
       return res.status(401).json({ message: "Account not found" });
@@ -54,9 +54,9 @@ export const validateCredentials = async (req: Request, res: Response, next: Nex
 };
 
 export const validateEmployeeCredentials = async (req: Request, res: Response, next: NextFunction) => {
-  await validateCredentials(req, res, next, EmployeesModel, SessionEmployeesModel)
+  await validateCredentials(req, res, next, employeesModel, sessionEmployeesModel)
 }
 
 export const validateUserCredentials = async (req: Request, res: Response, next: NextFunction) => {
-  await validateCredentials(req, res, next, UsersModel, SessionUsersModel)
+  await validateCredentials(req, res, next, usersModel, sessionUsersModel)
 }

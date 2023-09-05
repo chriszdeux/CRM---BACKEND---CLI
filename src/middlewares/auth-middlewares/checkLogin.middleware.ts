@@ -1,16 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { CustomSessionData } from "../../typings/express";
-import { EmployeesModel, SessionEmployeesModel, SessionUsersModel, UsersModel } from "../models";
-import { EmployeeInterfaces } from "../interfaces";
+import { employeesModel, sessionEmployeesModel, sessionUsersModel, usersModel } from "../../models";
 
-export const checkLogin = async (req: Request, res: Response, next: NextFunction, session: typeof SessionEmployeesModel | typeof SessionUsersModel) => {
+
+export const checkLogin = async (req: Request, res: Response, next: NextFunction, session: typeof sessionEmployeesModel | typeof sessionUsersModel) => {
   const email = req.body.email
   try {
     let existingAccount
-    if(session === SessionEmployeesModel){
-      existingAccount = await EmployeesModel.findOne({ email: email  })
-    } else if (session === SessionUsersModel) {
-      existingAccount = await UsersModel.findOne({ email: email  })
+    if(session === sessionEmployeesModel){
+      existingAccount = await employeesModel.findOne({ email: email  })
+    } else if (session === sessionUsersModel) {
+      existingAccount = await usersModel.findOne({ email: email  })
     }
 
     if(existingAccount) {
@@ -28,8 +27,8 @@ export const checkLogin = async (req: Request, res: Response, next: NextFunction
 };
 
 export const verifyEmployeeSession = async (req: Request, res: Response, next: NextFunction) => {
-  await checkLogin(req, res, next, SessionEmployeesModel)
+  await checkLogin(req, res, next, sessionEmployeesModel)
 }
 export const verifyUserSession = async (req: Request, res: Response, next: NextFunction) => {
-  await checkLogin(req, res, next, SessionUsersModel)
+  await checkLogin(req, res, next, sessionUsersModel)
 }

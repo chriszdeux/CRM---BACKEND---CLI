@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { EmployeesModel, UsersModel } from "../models";
+import { employeesModel, usersModel } from "../../models";
 const jwt = require("jsonwebtoken");
 
-export const verifyToken = async  (req:Request, res:Response, next:NextFunction, model: typeof EmployeesModel | typeof UsersModel ) => {
+export const verifyToken = async  (req:Request, res:Response, next:NextFunction, model: typeof employeesModel | typeof usersModel ) => {
   try {
     const token = req.headers['authorization'];
     if (!token) {
       return res.status(401).json({ message: 'No Token' });
     }
-    if( model === EmployeesModel ) {
-      const employee = await EmployeesModel.find({authToken: token });
+    if( model === employeesModel ) {
+      const employee = await employeesModel.find({authToken: token });
       if(employee.length === 0 || employee[0].authToken !== token){
         return res.status(401).json({ message: 'Invalid Token' })
       }
@@ -17,8 +17,8 @@ export const verifyToken = async  (req:Request, res:Response, next:NextFunction,
         return res.status(401).json({ message: 'Contact Support' })
       }
     } 
-    else if ( model === UsersModel ) {
-      const user = await UsersModel.find({authToken: token });
+    else if ( model === usersModel ) {
+      const user = await usersModel.find({authToken: token });
       if(user.length === 0 || user[0].authToken !== token){
         return res.status(401).json({ message: 'Invalid Token' })
       }
@@ -41,9 +41,9 @@ export const verifyToken = async  (req:Request, res:Response, next:NextFunction,
 
 
 export const validateEmployeeToken = async (req: Request, res:Response, next: NextFunction) => {
-  await verifyToken(req, res, next, EmployeesModel)
+  await verifyToken(req, res, next, employeesModel)
 }
 
 export const validateUsersToken = async (req: Request, res:Response, next: NextFunction) => {
-  await verifyToken(req, res, next, UsersModel)
+  await verifyToken(req, res, next, usersModel)
 }
