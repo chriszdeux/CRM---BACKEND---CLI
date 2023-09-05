@@ -1,12 +1,12 @@
 import express from 'express';
-import { addUserAuthToken, encryptingPassword, isUserSessionActive, validateUserCredentials, validateUsersToken, verifyUserEmail, verifyUserSession } from '../middlewares';
-import { loginUser, createNewUser, logoutUser, resetUserPassword, validateAccount } from '../controllers';
+import {  EncryptingPassword, IsUserSessionActive, ValidateUserCredentials, ValidateUsersToken, VerifyUserEmail, VerifyUserSession } from '../middlewares';
+import { LoginUser, CreateNewUser, LogoutUser, ResetUserPassword, ValidateAccount } from '../controllers';
 const router = express.Router();
 
 router.get('/',);
-router.post('/new', verifyUserEmail, encryptingPassword ,createNewUser)
-router.post('/login', verifyUserSession, validateUserCredentials, loginUser)
-router.post('/logout/:id', validateUsersToken, isUserSessionActive, logoutUser)
-router.put('/reset-password', validateUsersToken, validateUserCredentials, resetUserPassword )
-router.put('/confirm-account/:id', validateAccount)
+router.post('/new', VerifyUserEmail, EncryptingPassword ,CreateNewUser)
+router.post('/login', VerifyUserSession, ValidateUserCredentials, LoginUser)
+router.post('/logout/:id', ValidateUsersToken, IsUserSessionActive, LogoutUser)
+router.put('/reset-password', ValidateUsersToken, ValidateUserCredentials, ResetUserPassword )
+router.put('/confirm-account/:id', ValidateAccount)
 export default router;

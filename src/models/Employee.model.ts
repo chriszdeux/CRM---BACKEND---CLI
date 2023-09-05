@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { employeeInterfaces } from '../interfaces';
+import { EmployeeInterfaces } from '../interfaces';
 
-const employeeSchema = new Schema<employeeInterfaces>({
+const EmployeeSchema = new Schema<EmployeeInterfaces>({
   name: {
     type: String,
     required: true,
@@ -55,4 +55,4 @@ const employeeSchema = new Schema<employeeInterfaces>({
   }
 });
 
-export const employeesModel = mongoose.model<employeeInterfaces>('employees', employeeSchema);
+export const EmployeesModel = mongoose.model<EmployeeInterfaces>('employees', EmployeeSchema);

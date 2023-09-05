@@ -1,7 +1,7 @@
-import { generalInfoInterface } from "./GeneralInfo.interface";
+import { GeneralInfoInterface } from "./GeneralInfo.interface";
 
 
-export interface userInterface extends generalInfoInterface {
+export interface UserInterface extends GeneralInfoInterface {
   username: string,
   country: string,
   experienceLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'Not Specified',
@@ -9,10 +9,10 @@ export interface userInterface extends generalInfoInterface {
   confirmedAccount: boolean,
   confirmCode: string,
   credits: number,
-  portfolio: userPortfolio
+  portfolio: UserPortfolio
 }
 
-export interface userPortfolio {
+export interface UserPortfolio {
   crypto: Array<{
     id: string;
     name: string;

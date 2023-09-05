@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { usersModel } from "../../models";
+import { UsersModel } from "../../models";
 import { httpStatusCodes } from "../../utils";
 
-export const validateAccount = async ( req: Request, res: Response ) => {
+export const ValidateAccount = async ( req: Request, res: Response ) => {
   const { id } = req.params
   const { code } = req.body
   const { ok, notFound, forbidden } = httpStatusCodes
   try {
-    const user = await usersModel.findOne({ _id: id })
+    const user = await UsersModel.findOne({ _id: id })
     if(!user){
       res.status(notFound.code).json({ message: notFound.message })
       return

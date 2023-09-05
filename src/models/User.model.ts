@@ -1,7 +1,7 @@
 import mongoose, { Schema, mongo } from "mongoose";
-import { userInterface } from "../interfaces";
+import { UserInterface } from "../interfaces";
 
-export const userSchema = new Schema<userInterface>({
+export const UserSchema = new Schema<UserInterface>({
   name: {
     type: String,
     required: true,
@@ -89,4 +89,4 @@ export const userSchema = new Schema<userInterface>({
   },
 })
 
-export const usersModel = mongoose.model<userInterface>('users',userSchema)
+export const UsersModel = mongoose.model<UserInterface>('users',UserSchema)

@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { userInterface } from "../../interfaces";
+import { UserInterface } from "../../interfaces";
 import { formatDate, generateRandomCode, sendCodeEmail } from "../../utils";
-import { sessionUsersModel, usersModel } from "../../models";
+import { SessionUsersModel, UsersModel } from "../../models";
 import mongoose from "mongoose";
 const jwt = require("jsonwebtoken");
 
-export const createNewUser = async ( req:Request, res:Response ) => {
+export const CreateNewUser = async ( req:Request, res:Response ) => {
   try {
     let user = req.body
-    const userData: userInterface = req.body;
+    const userData: UserInterface = req.body;
     userData.createdAt = formatDate(new Date());
     const { password, genre, isLogged, active, experienceLevel, ...userFilters } = userData;
 
@@ -19,10 +19,10 @@ export const createNewUser = async ( req:Request, res:Response ) => {
     user.authToken = token
 
     const code = generateRandomCode()
-    const userCreated = new usersModel(userData);
+    const userCreated = new UsersModel(userData);
     userCreated.confirmCode = code
     sendCodeEmail(user.email, code)
-    const newSession = new sessionUsersModel({
+    const newSession = new SessionUsersModel({
       _id: userCreated._id,
       expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
       session: token,

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { employeesModel, sessionEmployeesModel } from "../../models";
+import { EmployeesModel, SessionEmployeesModel } from "../../models";
 const jwt = require("jsonwebtoken");
 
-export const login = async (req: Request, res: Response) => {
+export const Login = async (req: Request, res: Response) => {
   const { email } = req.body;
   try {
-    const employee  = await employeesModel.findOne({ email: email }, { password: 0 });
+    const employee  = await EmployeesModel.findOne({ email: email }, { password: 0 });
     const secretKey = process.env.SECRET_KEY;
     const tokenExpiration = "7d";
 
@@ -31,7 +31,7 @@ export const login = async (req: Request, res: Response) => {
       employee.save()
 
 
-      const newSession = new sessionEmployeesModel({
+      const newSession = new SessionEmployeesModel({
         _id: employee._id,
         expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
         session: token,

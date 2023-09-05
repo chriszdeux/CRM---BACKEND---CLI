@@ -1,5 +1,5 @@
 
-export interface coinSupplyData {
+export interface CoinSupplyData {
   confirmed: boolean;
   supplyAt: number;
   maxSupply: string;
@@ -7,19 +7,19 @@ export interface coinSupplyData {
   circulatingSupply: string;
 }
 
-export interface coinAllTimeHighData {
+export interface CoinAllTimeHighData {
   price: string;
   timestamp: number;
 }
 
-export interface coinInterface {
+export interface CoinInterface {
   uuid: string;
   symbol: string;
   name: string;
   description: string;
   color: string;
   iconUrl: string;
-  supply: coinSupplyData;
+  supply: CoinSupplyData;
   volume24h: string;
   marketCap: string;
   fullyDilutedMarketCap: string;
@@ -28,7 +28,7 @@ export interface coinInterface {
   change: string;
   rank: number;
   sparkline: string[];
-  allTimeHigh: coinAllTimeHighData;
+  allTimeHigh: CoinAllTimeHighData;
   lowVolume: boolean;
   listedAt: number;
   hasContent: boolean;

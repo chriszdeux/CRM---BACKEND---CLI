@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { employeesModel, usersModel } from "../../models";
+import { EmployeesModel, UsersModel } from "../../models";
 import { httpStatusCodes } from "../../utils";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const verifyEmailExist = async ( req: Request, res: Response, next: NextFunction, model: typeof employeesModel | typeof usersModel  ) => {
+export const VerifyEmailExist = async ( req: Request, res: Response, next: NextFunction, model: typeof EmployeesModel | typeof UsersModel  ) => {
   const { email } = req.body
   const { badRequest, internalServerError } = httpStatusCodes
 
@@ -16,10 +16,10 @@ export const verifyEmailExist = async ( req: Request, res: Response, next: NextF
   try {
     let emailExist;
   
-    if (model === employeesModel) {
-      emailExist = await employeesModel.findOne({ email: email });
-    } else if (model === usersModel) {
-      emailExist = await usersModel.findOne({ email: email });
+    if (model === EmployeesModel) {
+      emailExist = await EmployeesModel.findOne({ email: email });
+    } else if (model === UsersModel) {
+      emailExist = await UsersModel.findOne({ email: email });
     }
   
     if(emailExist) {
@@ -39,10 +39,10 @@ export const verifyEmailExist = async ( req: Request, res: Response, next: NextF
 
 }
 
-export const verifyEmployeeEmail = async ( req: Request, res:Response, next: NextFunction ) => {
-  await verifyEmailExist(req, res, next, employeesModel)
+export const VerifyEmployeeEmail = async ( req: Request, res:Response, next: NextFunction ) => {
+  await VerifyEmailExist(req, res, next, EmployeesModel)
 }
 
-export const verifyUserEmail = async (req:Request, res:Response, next:NextFunction) => {
-  await verifyEmailExist(req,res,next,usersModel);
+export const VerifyUserEmail = async (req:Request, res:Response, next:NextFunction) => {
+  await VerifyEmailExist(req,res,next,UsersModel);
 }

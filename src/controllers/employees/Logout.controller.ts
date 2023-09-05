@@ -1,18 +1,17 @@
 import { Request, Response } from "express";
-import { CustomSessionData } from "../../../typings/express";
-import { employeesModel, sessionUsersModel } from "../../models";
+import { EmployeesModel, SessionEmployeesModel } from "../../models";
 
-export const logout = async (req: Request, res: Response) => {
+export const Logout = async (req: Request, res: Response) => {
   try {
     const employeeId = req.body.id
-    const existingSession = await sessionUsersModel.findById(employeeId);
-    const employee = await employeesModel.findOne({ _id: employeeId })
+    const existingSession = await SessionEmployeesModel.findById(employeeId);
+    const employee = await EmployeesModel.findOne({ _id: employeeId })
     if( employee ) {
       employee.isLogged = false
       employee.save()
     }
     if (existingSession) {
-      await sessionUsersModel.findByIdAndDelete(employeeId);
+      await SessionEmployeesModel.findByIdAndDelete(employeeId);
       console.log("User session deleted.");
     } else {
       console.log("User session not found.");
