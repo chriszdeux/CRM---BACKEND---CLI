@@ -10,33 +10,25 @@ export const CreateNewUser = async ( req:Request, res:Response ) => {
     let user = req.body
     const userData: UserInterface = req.body;
     userData.createdAt = formatDate(new Date());
-    const { password, genre, isLogged, active, experienceLevel, ...userFilters } = userData;
+    userData.credits = 10000
+    userData.confirmedAccount = false
 
+    const code = generateRandomCode()
+    userData.confirmCode = code
     const secretKey = process.env.SECRET_KEY;
     const tokenExpiration = "7d";
     
     const token = jwt.sign(user, secretKey, { expiresIn: tokenExpiration });
     user.authToken = token
 
-    const code = generateRandomCode()
     const userCreated = new UsersModel(userData);
-    userCreated.confirmCode = code
+    userCreated.userId = userCreated._id.toString()
+    userData.userId = userCreated._id.toString()
     sendCodeEmail(user.email, code)
-    const newSession = new SessionUsersModel({
-      _id: userCreated._id,
-      expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
-      session: token,
-    });
-
     await userCreated.save();
-    await newSession.save()
-    console.log('New user created');
-    const newData = {
-      ...userFilters,
-      authToken: token,
-      userId: userCreated._id
-    }
-    res.status(201).send({ message: 'success', data: newData });
+      const { _id, __v, password:pass, ...response } = user
+
+    res.status(201).send({ message: 'success', data: response });
   } catch (error) {
     res.status(500).send({message: 'Problems with create', error});
   }

@@ -1,7 +1,9 @@
 import { GeneralInfoInterface } from "./GeneralInfo.interface";
+import { TransactionInterface } from "./index";
 
 
 export interface UserInterface extends GeneralInfoInterface {
+  userId?: string, 
   username: string,
   country: string,
   experienceLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'Not Specified',
@@ -10,12 +12,17 @@ export interface UserInterface extends GeneralInfoInterface {
   confirmCode: string,
   credits: number,
   portfolio: UserPortfolio
+  transactions: string[] ,
+  __v?: string
 }
 
 export interface UserPortfolio {
   crypto: Array<{
     id: string;
-    name: string;
     amount: number;
+    name?: string;
+    totalValue?: number;
+    logoImg?: string;
+    _id?: string
   }>;
 }

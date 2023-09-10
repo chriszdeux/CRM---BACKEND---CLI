@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { EmployeesModel, UsersModel } from "../../models";
-import { httpStatusCodes } from "../../utils";
+import { httpStatusCodes } from "../../types";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

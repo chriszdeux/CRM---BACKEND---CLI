@@ -9,5 +9,8 @@ export * from './users/LoginUser.controller'
 export * from './users/LogoutUser.controller'
 export * from './users/ResetUserPassword.controller'
 export * from './users/ValidateAccount.controller'
+export * from './users/BuyCrypto.controller'
 
-export * from './coins/CreateCoin.controller'
+export * from './crypto/CreateCoin.controller'
+
+export * from './transactions/NewTransaction.controller'

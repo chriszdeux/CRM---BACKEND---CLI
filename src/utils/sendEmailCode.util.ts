@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { generateRandomCode } from "./generateRandomCode.utils";
+import { generateRandomCode } from "./generateRandomCodes.utils";
 
 const nodemailer = require('nodemailer');
 require('dotenv').config();
@@ -21,7 +21,6 @@ export const sendCodeEmail = async (email: string, code: string) => {
       pass: password
     }
   }
-  console.log(config)
   const templatePath = path.join(__dirname, '..', 'templates', 'CodeConfirm.template.html');
   const htmlView = await fs.promises.readFile(templatePath, 'utf-8');
   const addingCodeToHtml = htmlView.replace('email_code', code);
@@ -36,7 +35,6 @@ export const sendCodeEmail = async (email: string, code: string) => {
 
   const transporter = await nodemailer.createTransport(config);
   const info = await transporter.sendMail(mailOptions);
-  console.log(info)
 };
 
 

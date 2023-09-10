@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { encryptPassword, httpStatusCodes } from "../../utils";
+import { encryptPassword } from "../../utils";
+import { httpStatusCodes } from "../../types";
 
 export const EncryptingPassword = async ( req:Request, res:Response, next: NextFunction ) => {
   const { password } = req.body

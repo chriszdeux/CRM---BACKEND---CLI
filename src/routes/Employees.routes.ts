@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/',  ValidateEmployeeToken ,GetEmployees);
 router.post('/new', VerifyEmployeeEmail, EncryptingPassword, CreateNewEmployee)
-router.post('/login', ValidateEmployeeCredentials, VerifyEmployeeSession , Login)
+router.post('/login', ValidateEmployeeCredentials , Login)
 router.post('/logout', ValidateEmployeeToken, IsEmployeeSessionActive, Logout)
 
 export default router;

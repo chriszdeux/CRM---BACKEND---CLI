@@ -31,14 +31,14 @@ export const Login = async (req: Request, res: Response) => {
       employee.save()
 
 
-      const newSession = new SessionEmployeesModel({
-        _id: employee._id,
-        expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
-        session: token,
-      });
+      // const newSession = new SessionEmployeesModel({
+      //   _id: employee._id,
+      //   expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
+      //   session: token,
+      // });
 
 
-      await newSession.save()
+      // await newSession.save()
       console.log(`Employee: ${employee.name} logged`);
       res.status(200).json({ message: "Authorization Success", data: responseData});
     } else {

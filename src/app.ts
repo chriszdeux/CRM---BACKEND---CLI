@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import { connectToDatabase } from './database/dataBaseConnection';
-import { CryptoRoutes, EmployeesRoutes, UsersRoutes } from './routes';
+import { CryptoRoutes, EmployeesRoutes, TransactionsRoutes, UsersRoutes } from './routes';
 import { CustomSessionData } from '../typings/express';
 
 require('dotenv').config();
@@ -39,6 +39,7 @@ app.get('/', function (req, res) {
 app.use('/employees', EmployeesRoutes);
 app.use('/users', UsersRoutes);
 app.use('/crypto', CryptoRoutes);
+app.use('/transactions', TransactionsRoutes);
 
 
 app.listen(port, () => {

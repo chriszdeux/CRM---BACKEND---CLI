@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UsersModel } from "../../models";
-import { httpStatusCodes } from "../../utils";
+import { httpStatusCodes } from "../../types";
 
 export const ValidateAccount = async ( req: Request, res: Response ) => {
   const { id } = req.params

@@ -15,18 +15,18 @@ export const LoginUser = async (req: Request, res: Response) => {
       const token = jwt.sign(req.body, secretKey, { expiresIn: tokenExpiration });
       user.authToken = token
 
-
-      const newSession = new SessionUsersModel({
-        _id: user._id,
-        expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
-        session: token,
-      });
+      const { _id, __v, ...response } = user.toObject()
+      // const newSession = new SessionUsersModel({
+      //   _id: user._id,
+      //   expires: new Date(Date.now() + parseInt(tokenExpiration) * 1000),
+      //   session: token,
+      // });
 
       user.isLogged = true
       await user.save()
-      await newSession.save()
+      // await newSession.save()
       console.log(`User: ${user.name} logged`);
-      res.status(201).json({ message: "Authorization Success", data: user});
+      res.status(200).json({ message: "Authorization Success", data: response});
     } else {
       console.log(`User not found for token: ${email}`);
       res.status(401).json({ message: "Authorization Failed" });

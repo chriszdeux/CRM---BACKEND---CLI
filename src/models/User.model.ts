@@ -2,6 +2,9 @@ import mongoose, { Schema, mongo } from "mongoose";
 import { UserInterface } from "../interfaces";
 
 export const UserSchema = new Schema<UserInterface>({
+  userId: {
+    type: String,
+  },
   name: {
     type: String,
     required: true,
@@ -80,13 +83,20 @@ export const UserSchema = new Schema<UserInterface>({
           type: String,
           required: false,
         },
+        totalValue: {
+          type: Number
+        },
         amount: {
           type: Number,
           required: false,
         },
+        logoImg: {
+          type: String
+        }
       },
     ],
   },
+  transactions: [{type: String}]
 })
 
 export const UsersModel = mongoose.model<UserInterface>('users',UserSchema)
